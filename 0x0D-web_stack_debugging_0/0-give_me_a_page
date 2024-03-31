@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# docker run -p 8080:80 -d -it holbertonschool/265-0
+
+docker ps
+docker exec -it <container-id> /bin/bash
+service apache2 status
+service apache2 start
+netstat -tulpen | grep LISTEN
+Listen 80
+curl 0:8080
+Hello Holberton
