@@ -34,18 +34,18 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend mananye-https
+frontend ssl_443
          bind *:443 ssl crt /etc/haproxy/cert/cert.pem
          reqadd X-Forwarded-Proto:\ https
-         default_backend myserver
+         default_backend web_servers
 
-frontend mananye-http
+frontend mananye.tech
         bind 0:80
         reqadd X-Forwarded-Proto:\ http
         redirect scheme https code 301 if !{ ssl_fc }
-        default_backend myserver
+        default_backend web_servers
 
-backend myserver
+backend web_servers
         balance roundrobin
         redirect scheme https if !{ ssl_fc }
         server 289318-web-01 52.204.100.156 check
